@@ -3,636 +3,374 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>base campus | まずは、やってみよう。</title>
-  <meta name="description" content="やりたいことがある人も、まだ決まっていない人も。プロのサポートで一歩踏み出せる、みんなのベースキャンプ。">
-  <meta property="og:title" content="base campus | まずは、やってみよう。">
-  <meta property="og:url" content="https://base-campus.com/">
-  <meta property="og:type" content="website">
+  <title>NPO法人 toiro commune designing | base campus</title>
+  <meta name="description" content="NPO法人 toiro commune designing の法人情報・事業報告・定款を掲載しています。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Space+Mono:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:      #f0ece2;
-      --fg:      #1e1c16;
-      --green:   #2e5c3e;
-      --green-l: #ddeae0;
-      --amber:   #b8641a;
-      --amber-l: #f0e0cc;
-      --sky:     #c8dce8;
-      --muted:   #7a7468;
-      --border:  #ccc7b8;
-      --white:   #fdfcf8;
+      --bg: #f7f4f0;
+      --fg: #1a1814;
+      --accent: #c0622a;
+      --accent-light: #e8d5c4;
+      --muted: #8a8278;
+      --border: #ddd8d0;
+      --white: #ffffff;
     }
 
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{
-      background:var(--bg);
-      color:var(--fg);
-      font-family:'Zen Maru Gothic',sans-serif;
-      font-weight:400;
-      line-height:1.85;
-      overflow-x:hidden;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
     }
 
-    /* ── NAV ── */
-    nav{
-      position:fixed;top:0;left:0;right:0;z-index:100;
-      display:flex;justify-content:space-between;align-items:center;
-      padding:16px 40px;
-      background:rgba(240,236,226,0.92);
-      backdrop-filter:blur(10px);
-      border-bottom:1px solid transparent;
-      transition:border-color .3s;
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
     }
-    nav.scrolled{border-bottom-color:var(--border)}
-    .nav-logo{
-      font-family:'Space Mono',monospace;font-size:13px;
-      letter-spacing:.1em;color:var(--fg);text-decoration:none;
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      color: var(--fg);
+      text-decoration: none;
     }
-    .nav-links{display:flex;gap:28px;list-style:none}
-    .nav-links a{
-      font-family:'Space Mono',monospace;font-size:11px;
-      letter-spacing:.06em;color:var(--muted);text-decoration:none;
-      transition:color .2s;
+    .nav-back {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
     }
-    .nav-links a:hover{color:var(--green)}
+    .nav-back::before { content: '←'; }
+    .nav-back:hover { color: var(--accent); }
 
-    /* ── HERO ── */
-    #hero{
-      min-height:100svh;
-      display:flex;flex-direction:column;
-      position:relative;overflow:hidden;
-      padding-top:64px;
+    /* HERO */
+    .page-hero {
+      background: var(--fg);
+      color: var(--white);
+      padding: 80px 40px;
     }
-
-    .hero-body{
-      flex:1;display:flex;align-items:center;
-      padding:60px 80px 0;
-      position:relative;z-index:2;
+    .page-hero-inner {
+      max-width: 800px;
+      margin: 0 auto;
     }
-
-    .hero-text{max-width:620px}
-
-    .hero-tag{
-      font-family:'Space Mono',monospace;
-      font-size:11px;letter-spacing:.18em;color:var(--green);
-      margin-bottom:24px;display:block;
-      opacity:0;animation:fadeUp .6s .15s forwards;
+    .page-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 20px;
+      display: block;
     }
-
-    .hero-catch{
-      font-family:'Zen Maru Gothic',sans-serif;
-      font-size:clamp(44px,7.5vw,88px);
-      font-weight:700;line-height:1.1;
-      letter-spacing:-.01em;margin-bottom:28px;
-      opacity:0;animation:fadeUp .7s .3s forwards;
+    .page-title {
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-size: clamp(24px, 4vw, 40px);
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 16px;
     }
-    .hero-catch .accent{color:var(--green)}
-    .hero-catch .small{font-size:.52em;display:block;font-weight:600;margin-bottom:8px;color:var(--amber)}
-
-    .hero-sub{
-      font-size:15px;color:var(--muted);
-      line-height:2.1;max-width:460px;margin-bottom:36px;
-      opacity:0;animation:fadeUp .7s .48s forwards;
-    }
-
-    .hero-ctas{
-      display:flex;gap:14px;flex-wrap:wrap;
-      opacity:0;animation:fadeUp .7s .62s forwards;
+    .page-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.08em;
     }
 
-    .btn-a{
-      display:inline-block;background:var(--green);color:var(--white);
-      padding:14px 34px;font-size:14px;font-weight:500;
-      letter-spacing:.06em;text-decoration:none;border-radius:24px;
-      transition:background .2s,transform .15s;
-    }
-    .btn-a:hover{background:#234831;transform:translateY(-2px)}
-
-    .btn-b{
-      display:inline-block;border:1.5px solid var(--fg);color:var(--fg);
-      padding:13px 30px;font-size:14px;font-weight:400;
-      letter-spacing:.06em;text-decoration:none;border-radius:24px;
-      transition:border-color .2s,color .2s,transform .15s;
-    }
-    .btn-b:hover{border-color:var(--green);color:var(--green);transform:translateY(-2px)}
-
-    /* 山のイラスト（SVG） */
-    .mountain-wrap{
-      position:relative;z-index:1;
-      width:100%;height:auto;
-      margin-top:-20px;
+    /* MAIN */
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 80px 40px;
     }
 
-    /* ── SECTION共通 ── */
-    section{padding:96px 0}
-    .container{max-width:1060px;margin:0 auto;padding:0 48px}
-
-    .s-label{
-      font-family:'Space Mono',monospace;
-      font-size:10px;letter-spacing:.22em;text-transform:uppercase;
-      color:var(--green);margin-bottom:14px;display:block;
-    }
-    .s-title{
-      font-family:'Zen Maru Gothic',sans-serif;
-      font-size:clamp(22px,3.2vw,34px);font-weight:700;
-      line-height:1.45;margin-bottom:18px;
-    }
-    .s-body{font-size:14px;color:var(--muted);line-height:2.3;max-width:500px}
-
-    /* ── WHAT ── */
-    #what{background:var(--white)}
-    .what-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-
-    .what-right{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--green-l);padding-left:32px}
-
-    .what-point{padding:20px 0;border-bottom:1px solid var(--border)}
-    .what-point:last-child{border-bottom:none}
-    .what-point-head{
-      font-size:14px;font-weight:500;margin-bottom:6px;
-      display:flex;align-items:center;gap:10px;
-    }
-    .what-point-head .dot{
-      width:10px;height:10px;border-radius:50%;
-      background:var(--green);flex-shrink:0;
-    }
-    .what-point p{font-size:13px;color:var(--muted);line-height:2;padding-left:20px}
-
-    .what-camp-note{
-      margin-top:28px;padding:18px 20px;
-      background:var(--green-l);border-radius:8px;
-      font-size:13px;color:var(--green);line-height:1.9;
-    }
-    .what-camp-note strong{font-weight:700}
-
-    /* ── WHY ── */
-    #why{background:var(--bg)}
-    .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-    .why-left{order:2}
-    .why-right{order:1}
-
-    .pro-card{
-      background:var(--white);border:1px solid var(--border);
-      border-radius:12px;padding:36px;
-      display:flex;flex-direction:column;gap:20px;
-    }
-    .pro-card-head{
-      font-family:'Space Mono',monospace;font-size:10px;
-      letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
-    }
-    .pro-card-title{
-      font-family:'Zen Maru Gothic',sans-serif;font-size:20px;font-weight:700;
-      line-height:1.5;
-    }
-    .pro-card-body{font-size:13px;color:var(--muted);line-height:2.1}
-    .pro-tag{
-      display:inline-block;background:var(--green-l);
-      color:var(--green);font-size:12px;font-weight:500;
-      padding:4px 12px;border-radius:20px;margin-right:6px;margin-bottom:6px;
+    /* INFO TABLE */
+    .info-section {
+      margin-bottom: 72px;
     }
 
-    /* ── MERIT ── */
-    #merit{background:var(--green)}
-    #merit .s-label{color:var(--green-l)}
-    #merit .s-title{color:var(--white)}
-    .merit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:40px;background:rgba(255,255,255,.12)}
-    .merit-card{
-      background:rgba(255,255,255,.06);
-      padding:36px 28px;
-      transition:background .2s;
+    .info-section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      display: block;
     }
-    .merit-card:hover{background:rgba(255,255,255,.12)}
-    .merit-num{
-      font-family:'Space Mono',monospace;font-size:11px;
-      color:rgba(255,255,255,.45);letter-spacing:.15em;margin-bottom:14px;
-    }
-    .merit-title{
-      font-size:17px;font-weight:700;color:var(--white);
-      margin-bottom:10px;line-height:1.5;
-    }
-    .merit-body{font-size:13px;color:rgba(255,255,255,.65);line-height:2}
 
-    /* ── PROJECTS ── */
-    #projects{background:var(--white)}
-    .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
-    .proj-card{
-      background:var(--bg);border:1px solid var(--border);border-radius:10px;
-      padding:28px;display:flex;flex-direction:column;gap:12px;
-      text-decoration:none;color:inherit;
-      transition:transform .2s,box-shadow .2s;
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
     }
-    .proj-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
-    .proj-status{
-      font-family:'Space Mono',monospace;font-size:9px;
-      letter-spacing:.18em;text-transform:uppercase;
-      color:var(--green);background:var(--green-l);
-      padding:3px 10px;border-radius:12px;display:inline-block;width:fit-content;
+
+    .info-table tr {
+      border-bottom: 1px solid var(--border);
     }
-    .proj-tag{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted)}
-    .proj-name{font-size:16px;font-weight:700;line-height:1.5}
-    .proj-desc{font-size:12px;color:var(--muted);line-height:1.9;flex:1}
-    .proj-owner{font-size:11px;color:var(--muted);margin-top:auto}
 
-    /* ── VOICES ── */
-    #voices{background:var(--amber-l)}
-    .voices-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:40px}
-    .voice-card{
-      background:var(--white);border-radius:10px;padding:28px;
-      display:flex;flex-direction:column;gap:14px;
+    .info-table th {
+      text-align: left;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+      padding: 16px 24px 16px 0;
+      width: 180px;
+      vertical-align: top;
+      font-family: 'Zen Maru Gothic', sans-serif;
+      letter-spacing: 0.05em;
     }
-    .voice-q{
-      font-size:14px;line-height:2;color:var(--fg);
-      position:relative;padding-left:18px;
+
+    .info-table td {
+      font-size: 14px;
+      padding: 16px 0;
+      vertical-align: top;
+      line-height: 1.9;
     }
-    .voice-q::before{content:'"';position:absolute;left:0;top:-2px;font-size:22px;color:var(--amber);font-family:'Zen Maru Gothic',sans-serif;line-height:1}
-    .voice-meta{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)}
 
-    /* ── NEWS ── */
-    .news-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px}
-    .news-note-link{
-      font-family:'Space Mono',monospace;font-size:11px;
-      color:var(--green);text-decoration:none;letter-spacing:.06em;
-      display:flex;align-items:center;gap:6px;
+    /* DOCS */
+    .doc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
     }
-    .news-note-link::after{content:'→'}
-    .news-list{display:flex;flex-direction:column;border-top:1px solid var(--border)}
-    .news-item{
-      display:flex;gap:28px;align-items:baseline;padding:16px 8px;
-      border-bottom:1px solid var(--border);text-decoration:none;color:inherit;
-      transition:background .15s,padding-left .15s;
-      border-radius:4px;
+
+    .doc-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--white);
+      padding: 20px 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s;
     }
-    .news-item:hover{background:var(--white);padding-left:16px}
-    .news-date{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);flex-shrink:0;width:80px}
-    .news-title{font-size:13px;line-height:1.8}
-    .news-loading{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);padding:20px 0;text-align:center}
+    .doc-item:hover { background: var(--accent-light); }
 
-    /* ── JOIN ── */
-    #join{background:var(--white)}
-    .join-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border-radius:12px;overflow:hidden;margin-top:40px}
-    .join-card{background:var(--white);padding:44px;display:flex;flex-direction:column;gap:16px}
-    .join-card-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-    .join-card-title{font-family:'Zen Maru Gothic',sans-serif;font-size:22px;font-weight:700;line-height:1.5}
-    .join-card-body{font-size:13px;color:var(--muted);line-height:2.1;flex:1}
+    .doc-item-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
-    /* ── FOOTER ── */
-    footer{background:var(--fg);color:rgba(255,255,255,.45);padding:40px 0}
-    .footer-inner{display:flex;justify-content:space-between;align-items:center}
-    .f-logo{font-family:'Space Mono',monospace;font-size:13px;color:var(--white);text-decoration:none;letter-spacing:.1em}
-    .f-links{display:flex;gap:20px;list-style:none}
-    .f-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
-    .f-links a:hover{color:var(--white)}
-    .f-copy{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;text-align:center;margin-top:20px}
+    .doc-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
-    .reveal.in{opacity:1;transform:none}
+    .doc-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
 
-    /* ── RESPONSIVE ── */
-    @media(max-width:768px){
-      nav{padding:14px 20px}
-      .nav-links{display:none}
-      .hero-body{padding:80px 24px 0}
-      .container{padding:0 24px}
-      section{padding:64px 0}
-      .what-grid,.why-grid,.join-grid{grid-template-columns:1fr}
-      .why-left{order:1}.why-right{order:2}
-      .merit-grid{grid-template-columns:1fr}
-      .proj-grid{grid-template-columns:1fr}
-      .voices-grid{grid-template-columns:1fr}
-      .news-header{flex-direction:column;align-items:flex-start;gap:12px}
-      .footer-inner{flex-direction:column;gap:20px;text-align:center}
-      .f-links{flex-wrap:wrap;justify-content:center}
+    .doc-arrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    .doc-placeholder {
+      background: var(--bg);
+      padding: 20px 24px;
+      font-size: 13px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.08em;
+    }
+
+    /* CONTACT */
+    .contact-block {
+      background: var(--white);
+      padding: 40px;
+      border: 1px solid var(--border);
+    }
+
+    .contact-block p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .contact-link {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      padding: 12px 28px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .contact-link:hover { background: #a8521f; }
+
+    /* FOOTER */
+    footer {
+      background: var(--fg);
+      color: rgba(255,255,255,0.4);
+      padding: 32px 40px;
+      text-align: center;
+    }
+    footer a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: var(--white); }
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      margin-top: 12px;
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .page-hero { padding: 60px 20px; }
+      main { padding: 48px 20px; }
+      .info-table th { width: 100px; font-size: 11px; }
+      .info-table td { font-size: 13px; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="nav">
+<nav>
   <a href="/" class="nav-logo">base campus</a>
-  <ul class="nav-links">
-    <li><a href="#what">about</a></li>
-    <li><a href="#projects">projects</a></li>
-    <li><a href="#news">news</a></li>
-    <li><a href="#join">join</a></li>
-    <li><a href="/donate/" target="_blank" rel="noopener">donate</a></li>
-  </ul>
+  <a href="/" class="nav-back">base campusに戻る</a>
 </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-body">
-    <div class="hero-text">
-      <span class="hero-tag">base campus — みんなのベースキャンプ</span>
-      <h1 class="hero-catch">
-        <span class="small">まずは、</span>やって<span class="accent">みよう。</span>
-      </h1>
-      <p class="hero-sub">
-        やりたいことが決まっている人も、まだ決まっていない人も。<br>
-        山に登る前にテントを張るように、ここで仲間と準備して、<br>
-        自分だけの一歩を踏み出そう。
-      </p>
-      <div class="hero-ctas">
-        <a href="#join" class="btn-a">参加してみる</a>
-        <a href="#what" class="btn-b">base campusって？</a>
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <span class="page-eyebrow">運営法人情報</span>
+    <h1 class="page-title">NPO法人<br>toiro commune designing</h1>
+    <p class="page-sub">base campus.com / toiro</p>
+  </div>
+</div>
+
+<main>
+
+  <!-- 法人基本情報 -->
+  <div class="info-section">
+    <span class="info-section-title">法人基本情報</span>
+    <table class="info-table">
+      <tr>
+        <th>法人名称</th>
+        <td>特定非営利活動法人 toiro commune designing</td>
+      </tr>
+      <tr>
+        <th>所在地</th>
+        <td>長野県 <!--★ 住所を記載してください ★--></td>
+      </tr>
+      <tr>
+        <th>設立</th>
+        <td>2019年4月</td>
+      </tr>
+      <tr>
+        <th>認証所管庁</th>
+        <td>長野県</td>
+      </tr>
+      <tr>
+        <th>目的</th>
+        <td>活動を通した自発的な学びの場づくり</td>
+      </tr>
+      <tr>
+        <th>主な事業</th>
+        <td>base campus（オンライン中心の学びの場）の企画・運営、プロジェクトマネジメントの普及・啓発</td>
+      </tr>
+      <tr>
+        <th>代表者</th>
+        <td>戸田 綾</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 書類 -->
+  <div class="info-section">
+    <span class="info-section-title">定款・事業報告書</span>
+    <div class="doc-list">
+
+      <!-- 定款 -->
+      <!-- ★ PDFを assets/teikan.pdf に配置したら href を差し替えてください ★ -->
+      <div class="doc-placeholder">
+        定款（PDF）— ファイルを準備後に追加予定
       </div>
-    </div>
-  </div>
-
-  <!-- 山のイラスト -->
-  <div class="mountain-wrap">
-    <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;height:auto">
-      <!-- 空のグラデーション的な背景 -->
-      <rect width="1440" height="320" fill="#c8dce8" opacity=".35"/>
-      <!-- 奥の山（薄い） -->
-      <polygon points="0,320 160,90 320,200 480,60 640,180 720,320" fill="#7aab8a" opacity=".25"/>
-      <polygon points="720,320 860,100 1000,190 1140,50 1300,160 1440,320" fill="#7aab8a" opacity=".25"/>
-      <!-- 手前の山（緑） -->
-      <polygon points="0,320 200,130 400,230 600,80 800,200 1000,110 1200,220 1440,100 1440,320" fill="#2e5c3e" opacity=".18"/>
-      <!-- 一番手前の稜線 -->
-      <polygon points="0,320 300,170 560,260 800,140 1060,250 1280,160 1440,220 1440,320" fill="#2e5c3e" opacity=".35"/>
-      <!-- テントのシルエット -->
-      <polygon points="660,260 700,220 740,260" fill="#b8641a" opacity=".7"/>
-      <polygon points="700,260 730,228 760,260" fill="#b8641a" opacity=".5"/>
-      <rect x="668" y="258" width="64" height="4" fill="#1e1c16" opacity=".2" rx="1"/>
-      <!-- 木のシルエット（左） -->
-      <rect x="580" y="255" width="4" height="20" fill="#1e1c16" opacity=".25"/>
-      <polygon points="582,256 568,278 596,278" fill="#2e5c3e" opacity=".6"/>
-      <polygon points="582,248 570,268 594,268" fill="#2e5c3e" opacity=".7"/>
-      <!-- 木のシルエット（右） -->
-      <rect x="820" y="250" width="4" height="24" fill="#1e1c16" opacity=".25"/>
-      <polygon points="822,250 808,272 836,272" fill="#2e5c3e" opacity=".6"/>
-      <polygon points="822,242 810,262 834,262" fill="#2e5c3e" opacity=".7"/>
-      <!-- 地面 -->
-      <rect x="0" y="272" width="1440" height="48" fill="#c8b89a" opacity=".3"/>
-    </svg>
-  </div>
-</section>
-
-<!-- WHAT -->
-<section id="what">
-  <div class="container">
-    <div class="what-grid">
-      <div class="reveal">
-        <span class="s-label">What is base campus</span>
-        <h2 class="s-title">やりたいことを見つけて、<br>やってみる場所。</h2>
-        <p class="s-body">
-          「何かしたい」でも「何かわからない」でも大丈夫。<br>
-          誰かのプロジェクトに参加して動いているうちに、自分のやりたいことが見えてくる。それがbase campusのスタイル。
-        </p>
-        <div class="what-camp-note" style="margin-top:28px">
-          <strong>🏕 ベースキャンプとは</strong><br>
-          登山では、山頂を目指す前にベースキャンプで仲間と準備を整える。base campusも同じ。社会人としての「base（基礎）」を築きながら、自分の山に挑む体制を整える場所です。
+      <!--
+      <a href="/toiro/assets/teikan.pdf" class="doc-item" target="_blank" rel="noopener">
+        <div class="doc-item-left">
+          <span class="doc-name">定款</span>
+          <span class="doc-meta">PDF — 最終改定 ●●●●年●月</span>
         </div>
+        <span class="doc-arrow">PDF →</span>
+      </a>
+      -->
+
+      <!-- 事業報告書（直近年度） -->
+      <!-- ★ PDFを assets/report_2024.pdf に配置したら href を差し替えてください ★ -->
+      <div class="doc-placeholder">
+        事業報告書 2024年度（PDF）— ファイルを準備後に追加予定
       </div>
-      <div class="what-right reveal">
-        <div class="what-point">
-          <div class="what-point-head"><span class="dot"></span>やりたいことが決まっている人は</div>
-          <p>プロのサポートのもと、アイデアをプロジェクト化して動かしはじめよう。失敗も全部、学びになる。</p>
+      <!--
+      <a href="/toiro/assets/report_2024.pdf" class="doc-item" target="_blank" rel="noopener">
+        <div class="doc-item-left">
+          <span class="doc-name">事業報告書 2024年度</span>
+          <span class="doc-meta">PDF — ●●●●年●月提出</span>
         </div>
-        <div class="what-point">
-          <div class="what-point-head"><span class="dot"></span>まだ決まっていない人は</div>
-          <p>誰かのプロジェクトに参加してみて。動いているうちに「あ、これやりたい」が自然と出てくる。</p>
-        </div>
-        <div class="what-point">
-          <div class="what-point-head"><span class="dot"></span>どんな人でも</div>
-          <p>学生も社会人も、スキルも経験も、あるものを持ち寄って。「まずはやってみる」だけでいい。</p>
-        </div>
-      </div>
+        <span class="doc-arrow">PDF →</span>
+      </a>
+      -->
+
+    </div>
+    <p style="margin-top: 12px; font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.08em;">
+      ※ 事業報告書は年次更新。PDFを差し替えるだけで更新完了です。
+    </p>
+  </div>
+
+  <!-- 寄付 -->
+  <div class="info-section">
+    <span class="info-section-title">寄付・支援</span>
+    <div class="contact-block">
+      <p>toiro commune designingへの寄付はSyncableよりお受けしています。いただいたご支援はbase campusの運営・プロジェクト活動に使わせていただきます。</p>
+      <a href="https://syncable.biz/" target="_blank" rel="noopener" class="contact-link">寄付・ご支援について →</a><!-- ★ SyncableのURLに差し替えてください ★ -->
     </div>
   </div>
-</section>
 
-<!-- WHY -->
-<section id="why">
-  <div class="container">
-    <div class="why-grid">
-      <div class="why-right reveal">
-        <span class="s-label">Why base campus</span>
-        <h2 class="s-title">プロがいるから、<br>安心して踏み出せる。</h2>
-        <p class="s-body">
-          「やってみたい」で止まってしまう一番の理由は、「どうすればいいかわからない」こと。base campusには、ビジネス現場で活躍するプロジェクトデザイナーがいる。やりたいことをプロジェクト化して、動かす仕組みごとサポートします。
-        </p>
-      </div>
-      <div class="why-left reveal">
-        <div class="pro-card">
-          <span class="pro-card-head">Project Designer</span>
-          <p class="pro-card-title">プロジェクトを<br>「動くかたち」に変える専門家</p>
-          <p class="pro-card-body">
-            ふわっとしたアイデアや課題感を、実際に動かせるプロジェクトに整えるのが私たちの役割。対話を通じて「何がやりたいか」を一緒に掘り下げます。
-          </p>
-          <div>
-            <span class="pro-tag">プロジェクトマネジメント</span>
-            <span class="pro-tag">ファシリテーション</span>
-            <span class="pro-tag">社会課題×実践</span>
-          </div>
-        </div>
-      </div>
+  <!-- お問い合わせ -->
+  <div class="info-section">
+    <span class="info-section-title">お問い合わせ</span>
+    <div class="contact-block">
+      <p>法人に関するお問い合わせはこちらからご連絡ください。</p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSds_ZMtlH2Mjnus8jHEwhLUnRSXh99ammabRsQg__0VS80f8g/viewform?usp=publish-editor" class="contact-link">お問い合わせフォーム →</a><!-- ★ フォームURLを確認してください ★ -->
     </div>
   </div>
-</section>
 
-<!-- MERIT -->
-<section id="merit">
-  <div class="container">
-    <span class="s-label reveal">What you get</span>
-    <h2 class="s-title reveal" style="color:#fff">参加して得られること</h2>
-    <div class="merit-grid">
-      <div class="merit-card reveal">
-        <p class="merit-num">01</p>
-        <p class="merit-title">やりたいことが、やれた、になる</p>
-        <p class="merit-body">頭の中にあったアイデアが、実際に動くプロジェクトになる経験。これ自体が一番大きな収穫です。</p>
-      </div>
-      <div class="merit-card reveal">
-        <p class="merit-num">02</p>
-        <p class="merit-title">社会を見る目が変わる</p>
-        <p class="merit-body">社会課題に向き合うプロジェクトを通じて、「social goodな視点」が自然と身につく。世界の見え方が変わります。</p>
-      </div>
-      <div class="merit-card reveal">
-        <p class="merit-num">03</p>
-        <p class="merit-title">AI時代に効くスキルが手に入る</p>
-        <p class="merit-body">「何をするか」を自分で決めて動く経験は、AI時代に最も求められるスキル。答えのない問いに向き合う力がつく。</p>
-      </div>
-    </div>
-  </div>
-</section>
+</main>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <span class="s-label reveal">Projects</span>
-    <h2 class="s-title reveal">いま動いているプロジェクト</h2>
-    <p class="s-body reveal" style="margin-bottom:8px">気になるものがあれば、まず参加してみよう。</p>
-    <div class="proj-grid">
-      <div class="proj-card reveal">
-        <span class="proj-status">Active</span>
-        <span class="proj-tag">#森林保全</span>
-        <p class="proj-name">やつ森！プロジェクト</p>
-        <p class="proj-desc">森林保全への第一歩として、気軽に森に入り、森を好きになれる機会をつくる。</p>
-        <span class="proj-owner">Masato Otowa / 2020.8〜</span>
-      </div>
-      <div class="proj-card reveal">
-        <span class="proj-status">Active</span>
-        <span class="proj-tag">#AI #留学情報 #多文化共生</span>
-        <p class="proj-name">ベトナム人向け日本留学情報サイト構築</p>
-        <p class="proj-desc">日本に留学したいベトナム人向けに、AIチャットで情報提供できるサイトをAIで構築する。</p>
-        <span class="proj-owner">NGUYEN THI VI HA / 2025.4〜</span>
-      </div>
-      <div class="proj-card reveal">
-        <span class="proj-status completed">Completed</span>
-        <span class="proj-tag">#学び #地域コミュニティ</span>
-        <p class="proj-name">みんなのテラコヤ</p>
-        <p class="proj-desc">大人も子どもも学びたいことを学べる場をつくりたい。</p>
-        <span class="proj-owner">Masato Otowa / 2020.4〜2024</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- VOICES -->
-<section id="voices">
-  <div class="container">
-    <span class="s-label reveal">Voices</span>
-    <h2 class="s-title reveal">参加した人たちの声</h2>
-    <div class="voices-grid">
-      <div class="voice-card reveal">
-        <p class="voice-q">ランチタイムを中心に、普段の仕事と並行しながら参加。「お金の学校」をプロジェクト化できました。</p>
-        <span class="voice-meta">まちこさん — プロボノ</span>
-      </div>
-      <div class="voice-card reveal">
-        <p class="voice-q">単位取得後も継続して、すきま時間で自分のプロジェクトを立ち上げ、後輩たちと活動しています。</p>
-        <span class="voice-meta">まつむらさん — インターン・学生</span>
-      </div>
-      <div class="voice-card reveal">
-        <p class="voice-q">毎週リサーチと話し合いを通して課題を徹底的に掘り下げ中！思ってたより楽しい。</p>
-        <span class="voice-meta">熊谷さん — インターン・学生</span>
-      </div>
-      <div class="voice-card reveal">
-        <p class="voice-q">ビジネスの経験を活かして、社会プロジェクトを立ち上げたり、他のプロジェクトをサポートしています。</p>
-        <span class="voice-meta">おとわさん — プロボノ</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- NEWS -->
-<section id="news">
-  <div class="container">
-    <div class="news-header reveal">
-      <div>
-        <span class="s-label">News</span>
-        <h2 class="s-title">最新情報</h2>
-      </div>
-      <a href="https://note.com/base_campus" target="_blank" rel="noopener" class="news-note-link">noteをすべて見る</a>
-    </div>
-    <div class="news-list reveal" id="news-list">
-      <p class="news-loading" id="news-loading">loading...</p>
-    </div>
-  </div>
-</section>
-
-<!-- JOIN -->
-<section id="join">
-  <div class="container">
-    <span class="s-label reveal">Join & Support</span>
-    <h2 class="s-title reveal">いっしょにやってみよう</h2>
-    <div class="join-grid reveal">
-      <div class="join-card">
-        <span class="join-card-tag">参加する</span>
-        <h3 class="join-card-title">プロジェクトに<br>関わりたい方へ</h3>
-        <p class="join-card-body">
-          やりたいことがある人も、まだ決まっていない人も。まずはオンライン説明会（無料・顔出し不要）に来てみてください。
-        </p>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSds_ZMtlH2Mjnus8jHEwhLUnRSXh99ammabRsQg__0VS80f8g/viewform?usp=publish-editor" class="btn-a" style="width:fit-content">説明会に参加する</a>
-      </div>
-      <div class="join-card">
-        <span class="join-card-tag">支援する</span>
-        <h3 class="join-card-title">活動を<br>応援したい方へ</h3>
-        <p class="join-card-body">
-          base campusの活動は、寄付に支えられています。いただいたご支援はプロジェクト運営・場づくりに使わせていただきます。
-        </p>
-        <!-- ★ SyncableのURLを確認して差し替えてください ★ -->
-        <a href="/donate/" target="_blank" rel="noopener" class="btn-b" style="width:fit-content">寄付・ご支援について</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
-  <div class="container">
-    <div class="footer-inner">
-      <a href="/" class="f-logo">base campus</a>
-      <ul class="f-links">
-        <li><a href="/toiro/">NPO法人 toiro commune designing</a></li>
-        <li><a href="/privacy-policy/">プライバシーポリシー</a></li>
-        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSds_ZMtlH2Mjnus8jHEwhLUnRSXh99ammabRsQg__0VS80f8g/viewform?usp=publish-editor">お問い合わせ</a></li>
-      </ul>
-    </div>
-    <p class="f-copy">© base campus / NPO法人 toiro commune designing</p>
-  </div>
+  <a href="/">← base campus トップに戻る</a>
+  <p class="footer-copy">© NPO法人 toiro commune designing</p>
 </footer>
 
-<script>
-  // NAV
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 32);
-  }, {passive: true});
-
-  // Scroll reveal
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('in'), i * 70);
-        obs.unobserve(e.target);
-      }
-    });
-  }, {threshold: 0.1});
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-  // note RSS（allorigins経由）
-  const RSS = 'https://note.com/base_campus/rss';
-
-  async function loadNews() {
-    const list = document.getElementById('news-list');
-    const loading = document.getElementById('news-loading');
-    try {
-      const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS)}`;
-      const r = await fetch(proxy);
-      if (!r.ok) throw new Error();
-      const text = await r.text();
-      const parser = new DOMParser();
-      const xml = parser.parseFromString(text, 'text/xml');
-      const items = Array.from(xml.querySelectorAll('item')).slice(0, 6);
-      if (!items.length) throw new Error();
-      loading.remove();
-      items.forEach(item => {
-        const title = item.querySelector('title')?.textContent || '';
-        const link  = item.querySelector('link')?.textContent || 'https://note.com/base_campus';
-        const pub   = item.querySelector('pubDate')?.textContent || '';
-        const dt    = pub ? new Date(pub) : null;
-        const ds    = dt
-          ? `${dt.getFullYear()}/${String(dt.getMonth()+1).padStart(2,'0')}/${String(dt.getDate()).padStart(2,'0')}`
-          : '';
-        const a = document.createElement('a');
-        a.className = 'news-item';
-        a.href = link;
-        a.target = '_blank';
-        a.rel = 'noopener';
-        a.innerHTML = `<span class="news-date">${ds}</span><span class="news-title">${title}</span>`;
-        list.appendChild(a);
-      });
-    } catch {
-      loading.innerHTML = '<a href="https://note.com/base_campus" target="_blank" rel="noopener" style="color:var(--green)">最新情報はnoteで発信しています →</a>';
-    }
-  }
-  loadNews();
-</script>
 </body>
 </html>
