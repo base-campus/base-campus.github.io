@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>寄付・ご支援 | base campus</title>
+  <meta name="description" content="base campusへの寄付・ご支援の方法についてご案内します。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Space+Mono:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f0ece2;--fg:#1e1c16;--green:#2e5c3e;--green-l:#ddeae0;
+      --amber:#b8641a;--amber-l:#f0e0cc;--muted:#7a7468;
+      --border:#ccc7b8;--white:#fdfcf8;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--fg);font-family:'Zen Maru Gothic',sans-serif;font-weight:400;line-height:1.85;}
+
+    nav{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:16px 40px;background:var(--bg);border-bottom:1px solid var(--border);
+    }
+    .nav-logo{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.1em;color:var(--fg);text-decoration:none;}
+    .nav-back{
+      font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;
+      color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;
+      transition:color .2s;
+    }
+    .nav-back::before{content:'←'}
+    .nav-back:hover{color:var(--green)}
+
+    .page-hero{background:var(--green);color:var(--white);padding:72px 40px;}
+    .page-hero-inner{max-width:760px;margin:0 auto;}
+    .page-eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--green-l);margin-bottom:16px;display:block;}
+    .page-title{font-size:clamp(24px,4vw,40px);font-weight:700;line-height:1.4;margin-bottom:12px;}
+    .page-sub{font-size:14px;color:rgba(255,255,255,.65);line-height:2;}
+
+    main{max-width:760px;margin:0 auto;padding:72px 40px;}
+
+    .s-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:14px;display:block;}
+
+    .info-section{margin-bottom:64px;}
+
+    .info-section p{font-size:14px;color:var(--muted);line-height:2.2;margin-bottom:24px;}
+
+    /* 振込先カード */
+    .bank-card{
+      background:var(--white);border:1px solid var(--border);border-radius:10px;
+      padding:36px;margin-bottom:16px;
+    }
+    .bank-card-title{
+      font-size:15px;font-weight:700;margin-bottom:20px;
+      padding-bottom:14px;border-bottom:1px solid var(--border);
+    }
+    .bank-table{width:100%;border-collapse:collapse;}
+    .bank-table tr{border-bottom:1px solid var(--border);}
+    .bank-table tr:last-child{border-bottom:none;}
+    .bank-table th{
+      text-align:left;font-size:12px;font-weight:400;color:var(--muted);
+      padding:12px 20px 12px 0;width:140px;vertical-align:top;
+    }
+    .bank-table td{font-size:14px;padding:12px 0;vertical-align:top;line-height:1.8;}
+    .bank-table td strong{font-weight:700;}
+    .bank-note{font-size:12px;color:var(--muted);line-height:1.9;margin-top:12px;padding:12px 16px;background:var(--bg);border-radius:6px;}
+
+    /* お礼セクション */
+    .thanks-box{
+      background:var(--amber-l);border-radius:10px;padding:32px;
+      font-size:14px;line-height:2.1;color:var(--fg);
+    }
+    .thanks-box strong{color:var(--amber);font-weight:700;}
+
+    .contact-link{
+      display:inline-block;background:var(--green);color:var(--white);
+      padding:12px 28px;font-size:13px;letter-spacing:.06em;font-weight:500;
+      text-decoration:none;border-radius:24px;margin-top:20px;
+      transition:background .2s;
+    }
+    .contact-link:hover{background:#234831;}
+
+    footer{background:var(--fg);color:rgba(255,255,255,.4);padding:36px 40px;text-align:center;}
+    footer a{color:rgba(255,255,255,.6);text-decoration:none;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;transition:color .2s;}
+    footer a:hover{color:var(--white);}
+    .f-copy{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;margin-top:12px;}
+
+    @media(max-width:600px){
+      nav{padding:14px 20px;}
+      .page-hero{padding:60px 20px;}
+      main{padding:48px 20px;}
+      .bank-table th{width:100px;font-size:11px;}
+      .bank-table td{font-size:13px;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">base campus</a>
+  <a href="/" class="nav-back">トップに戻る</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <span class="page-eyebrow">Support us</span>
+    <h1 class="page-title">寄付・ご支援</h1>
+    <p class="page-sub">base campusの活動は、みなさまのご支援で成り立っています。<br>ご支援いただいた寄付金は、プロジェクトの運営・場づくりに大切に使わせていただきます。</p>
+  </div>
+</div>
+
+<main>
+
+  <div class="info-section">
+    <span class="s-label">銀行振込</span>
+    <p>以下の口座へお振り込みください。お振込手数料はご負担いただけますと幸いです。</p>
+    <div class="bank-card">
+      <p class="bank-card-title">ゆうちょ銀行</p>
+      <table class="bank-table">
+        <tr>
+          <th>店名</th>
+          <td><strong>一一八（イチイチハチ）</strong></td>
+        </tr>
+        <tr>
+          <th>店番</th>
+          <td>118</td>
+        </tr>
+        <tr>
+          <th>口座種別</th>
+          <td>普通預金</td>
+        </tr>
+        <tr>
+          <th>口座番号</th>
+          <td><strong>4451235</strong></td>
+        </tr>
+        <tr>
+          <th>名義</th>
+          <td>特定非営利活動法人toiro commune designing<br><span style="font-size:12px;color:var(--muted)">（トクヒ）トイロコミューンデザイニング</span></td>
+        </tr>
+        <tr>
+          <th>ゆうちょ間</th>
+          <td>11180-44512351</td>
+        </tr>
+      </table>
+      <p class="bank-note">※ お振込の際は、お名前の後に「キフ」とご記入ください。<br>※ お振込後はお問い合わせフォームよりご連絡いただけると助かります。</p>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <span class="s-label">お振込後のご連絡</span>
+    <div class="thanks-box">
+      <strong>ご支援、本当にありがとうございます。</strong><br>
+      お振込後にお名前・金額・使途のご希望などをお知らせいただけると、活動報告などでご報告できます。ご連絡はお気軽にどうぞ。
+    </div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSds_ZMtlH2Mjnus8jHEwhLUnRSXh99ammabRsQg__0VS80f8g/viewform?usp=publish-editor" target="_blank" rel="noopener" class="contact-link">お問い合わせフォームへ</a>
+  </div>
+
+</main>
+
+<footer>
+  <a href="/">← base campus トップに戻る</a>
+  <p class="f-copy">© base campus / NPO法人 toiro commune designing</p>
+</footer>
+
+</body>
+</html>
