@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NPO法人 toiro commune designing | base campus</title>
+  <meta name="description" content="NPO法人 toiro commune designing の法人情報・事業報告・定款を掲載しています。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Space+Mono:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f4f0;
+      --fg: #1a1814;
+      --accent: #c0622a;
+      --accent-light: #e8d5c4;
+      --muted: #8a8278;
+      --border: #ddd8d0;
+      --white: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      color: var(--fg);
+      text-decoration: none;
+    }
+    .nav-back {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    .nav-back::before { content: '←'; }
+    .nav-back:hover { color: var(--accent); }
+
+    /* HERO */
+    .page-hero {
+      background: var(--fg);
+      color: var(--white);
+      padding: 80px 40px;
+    }
+    .page-hero-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .page-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 20px;
+      display: block;
+    }
+    .page-title {
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-size: clamp(24px, 4vw, 40px);
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+    .page-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.08em;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    /* INFO TABLE */
+    .info-section {
+      margin-bottom: 72px;
+    }
+
+    .info-section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      display: block;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .info-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-table th {
+      text-align: left;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+      padding: 16px 24px 16px 0;
+      width: 180px;
+      vertical-align: top;
+      font-family: 'Zen Maru Gothic', sans-serif;
+      letter-spacing: 0.05em;
+    }
+
+    .info-table td {
+      font-size: 14px;
+      padding: 16px 0;
+      vertical-align: top;
+      line-height: 1.9;
+    }
+
+    /* DOCS */
+    .doc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .doc-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--white);
+      padding: 20px 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s;
+    }
+    .doc-item:hover { background: var(--accent-light); }
+
+    .doc-item-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .doc-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .doc-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    .doc-arrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    .doc-placeholder {
+      background: var(--bg);
+      padding: 20px 24px;
+      font-size: 13px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.08em;
+    }
+
+    /* CONTACT */
+    .contact-block {
+      background: var(--white);
+      padding: 40px;
+      border: 1px solid var(--border);
+    }
+
+    .contact-block p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .contact-link {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      padding: 12px 28px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .contact-link:hover { background: #a8521f; }
+
+    /* FOOTER */
+    footer {
+      background: var(--fg);
+      color: rgba(255,255,255,0.4);
+      padding: 32px 40px;
+      text-align: center;
+    }
+    footer a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: var(--white); }
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      margin-top: 12px;
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .page-hero { padding: 60px 20px; }
+      main { padding: 48px 20px; }
+      .info-table th { width: 100px; font-size: 11px; }
+      .info-table td { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">base campus</a>
+  <a href="/" class="nav-back">base campusに戻る</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <span class="page-eyebrow">運営法人情報</span>
+    <h1 class="page-title">NPO法人<br>toiro commune designing</h1>
+    <p class="page-sub">base campus.com / toiro</p>
+  </div>
+</div>
+
+<main>
+
+  <!-- 法人基本情報 -->
+  <div class="info-section">
+    <span class="info-section-title">法人基本情報</span>
+    <table class="info-table">
+      <tr>
+        <th>法人名称</th>
+        <td>特定非営利活動法人 toiro commune designing</td>
+      </tr>
+      <tr>
+        <th>所在地</th>
+        <td>長野県 <!--★ 住所を記載してください ★--></td>
+      </tr>
+      <tr>
+        <th>設立</th>
+        <td>2019年4月</td>
+      </tr>
+      <tr>
+        <th>認証所管庁</th>
+        <td>長野県</td>
+      </tr>
+      <tr>
+        <th>目的</th>
+        <td>活動を通した自発的な学びの場づくり</td>
+      </tr>
+      <tr>
+        <th>主な事業</th>
+        <td>base campus（オンライン中心の学びの場）の企画・運営、プロジェクトマネジメントの普及・啓発</td>
+      </tr>
+      <tr>
+        <th>代表者</th>
+        <td>戸田 綾</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 書類 -->
+  <div class="info-section">
+    <span class="info-section-title">定款・事業報告書</span>
+    <div class="doc-list">
+
+      <!-- 定款 -->
+      <!-- ★ PDFを assets/teikan.pdf に配置したら href を差し替えてください ★ -->
+      <div class="doc-placeholder">
+        定款（PDF）— ファイルを準備後に追加予定
+      </div>
+      <!--
+      <a href="/toiro/assets/teikan.pdf" class="doc-item" target="_blank" rel="noopener">
+        <div class="doc-item-left">
+          <span class="doc-name">定款</span>
+          <span class="doc-meta">PDF — 最終改定 ●●●●年●月</span>
+        </div>
+        <span class="doc-arrow">PDF →</span>
+      </a>
+      -->
+
+      <!-- 事業報告書（直近年度） -->
+      <!-- ★ PDFを assets/report_2024.pdf に配置したら href を差し替えてください ★ -->
+      <div class="doc-placeholder">
+        事業報告書 2024年度（PDF）— ファイルを準備後に追加予定
+      </div>
+      <!--
+      <a href="/toiro/assets/report_2024.pdf" class="doc-item" target="_blank" rel="noopener">
+        <div class="doc-item-left">
+          <span class="doc-name">事業報告書 2024年度</span>
+          <span class="doc-meta">PDF — ●●●●年●月提出</span>
+        </div>
+        <span class="doc-arrow">PDF →</span>
+      </a>
+      -->
+
+    </div>
+    <p style="margin-top: 12px; font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.08em;">
+      ※ 事業報告書は年次更新。PDFを差し替えるだけで更新完了です。
+    </p>
+  </div>
+
+  <!-- 寄付 -->
+  <div class="info-section">
+    <span class="info-section-title">寄付・支援</span>
+    <div class="contact-block">
+      <p>toiro commune designingへの寄付はSyncableよりお受けしています。いただいたご支援はbase campusの運営・プロジェクト活動に使わせていただきます。</p>
+      <a href="https://syncable.biz/" target="_blank" rel="noopener" class="contact-link">振込先・寄付の方法を見る → →</a><!-- ★ SyncableのURLに差し替えてください ★ -->
+    </div>
+  </div>
+
+  <!-- お問い合わせ -->
+  <div class="info-section">
+    <span class="info-section-title">お問い合わせ</span>
+    <div class="contact-block">
+      <p>法人に関するお問い合わせはこちらからご連絡ください。</p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSds_ZMtlH2Mjnus8jHEwhLUnRSXh99ammabRsQg__0VS80f8g/viewform?usp=publish-editor" class="contact-link">お問い合わせフォーム →</a><!-- ★ フォームURLを確認してください ★ -->
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <a href="/">← base campus トップに戻る</a>
+  <p class="footer-copy">© NPO法人 toiro commune designing</p>
+</footer>
+
+</body>
+</html>
