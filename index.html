@@ -600,28 +600,52 @@
 
   // note RSS（rss2json経由）
   // ★ noteのRSSのURLを確認して差し替えてください ★
-  const RSS = 'https://note.com/base_campus/rss';
+  // note RSS取得（CORS回避：複数プロキシをフォールバック付きで試行）
+  const RSS_URL = 'https://note.com/base_campus/rss';
+  const NOTE_URL = 'https://note.com/base_campus';
+
+  const PROXIES = [
+    url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+    url => `https://thingproxy.freeboard.io/fetch/${url}`,
+  ];
+
+  async function tryFetch(url) {
+    for (const proxy of PROXIES) {
+      try {
+        const r = await fetch(proxy(url), {signal: AbortSignal.timeout(5000)});
+        if (!r.ok) continue;
+        const text = await r.text();
+        if (text.includes('<item>')) return text;
+      } catch {}
+    }
+    return null;
+  }
 
   async function loadNews() {
     const list = document.getElementById('news-list');
     const loading = document.getElementById('news-loading');
+
+    const xml_text = await tryFetch(RSS_URL);
+    if (!xml_text) {
+      loading.innerHTML = `<a href="${NOTE_URL}" target="_blank" rel="noopener" style="color:var(--green)">最新情報はnoteで発信しています →</a>`;
+      return;
+    }
+
     try {
-      // CORS回避：AllOriginsプロキシ経由でnote RSSを取得
-      const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(RSS)}`;
-      const r = await fetch(proxy);
-      const d = await r.json();
-      if (!d.contents) throw new Error();
       const parser = new DOMParser();
-      const xml = parser.parseFromString(d.contents, 'text/xml');
+      const xml = parser.parseFromString(xml_text, 'text/xml');
       const items = Array.from(xml.querySelectorAll('item')).slice(0, 6);
       if (!items.length) throw new Error();
       loading.remove();
       items.forEach(item => {
         const title = item.querySelector('title')?.textContent || '';
-        const link  = item.querySelector('link')?.textContent || '#';
+        const link  = item.querySelector('link')?.textContent
+                   || item.getElementsByTagNameNS('*','link')[0]?.textContent
+                   || NOTE_URL;
         const pub   = item.querySelector('pubDate')?.textContent || '';
-        const dt = pub ? new Date(pub) : null;
-        const ds = dt
+        const dt    = pub ? new Date(pub) : null;
+        const ds    = dt
           ? `${dt.getFullYear()}/${String(dt.getMonth()+1).padStart(2,'0')}/${String(dt.getDate()).padStart(2,'0')}`
           : '';
         const a = document.createElement('a');
@@ -633,7 +657,7 @@
         list.appendChild(a);
       });
     } catch {
-      loading.innerHTML = '<a href="https://note.com/base_campus" target="_blank" rel="noopener" style="color:var(--green)">最新情報はnoteで発信しています →</a>';
+      loading.innerHTML = `<a href="${NOTE_URL}" target="_blank" rel="noopener" style="color:var(--green)">最新情報はnoteで発信しています →</a>`;
     }
   }
   loadNews();
