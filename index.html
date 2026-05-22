@@ -606,20 +606,30 @@
     const list = document.getElementById('news-list');
     const loading = document.getElementById('news-loading');
     try {
-      const url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS)}&count=6`;
-      const r = await fetch(url);
+      // CORS回避：AllOriginsプロキシ経由でnote RSSを取得
+      const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(RSS)}`;
+      const r = await fetch(proxy);
       const d = await r.json();
-      if (d.status !== 'ok' || !d.items?.length) throw new Error();
+      if (!d.contents) throw new Error();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(d.contents, 'text/xml');
+      const items = Array.from(xml.querySelectorAll('item')).slice(0, 6);
+      if (!items.length) throw new Error();
       loading.remove();
-      d.items.forEach(item => {
-        const dt = new Date(item.pubDate);
-        const ds = `${dt.getFullYear()}/${String(dt.getMonth()+1).padStart(2,'0')}/${String(dt.getDate()).padStart(2,'0')}`;
+      items.forEach(item => {
+        const title = item.querySelector('title')?.textContent || '';
+        const link  = item.querySelector('link')?.textContent || '#';
+        const pub   = item.querySelector('pubDate')?.textContent || '';
+        const dt = pub ? new Date(pub) : null;
+        const ds = dt
+          ? `${dt.getFullYear()}/${String(dt.getMonth()+1).padStart(2,'0')}/${String(dt.getDate()).padStart(2,'0')}`
+          : '';
         const a = document.createElement('a');
         a.className = 'news-item';
-        a.href = item.link;
+        a.href = link;
         a.target = '_blank';
         a.rel = 'noopener';
-        a.innerHTML = `<span class="news-date">${ds}</span><span class="news-title">${item.title}</span>`;
+        a.innerHTML = `<span class="news-date">${ds}</span><span class="news-title">${title}</span>`;
         list.appendChild(a);
       });
     } catch {
