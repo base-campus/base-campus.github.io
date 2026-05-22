@@ -249,26 +249,7 @@
     .voice-q::before{content:'"';position:absolute;left:0;top:-2px;font-size:22px;color:var(--amber);font-family:'Zen Maru Gothic',sans-serif;line-height:1}
     .voice-meta{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)}
 
-    /* ── NEWS ── */
-    #news{background:var(--bg)}
-    .news-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px}
-    .news-note-link{
-      font-family:'Space Mono',monospace;font-size:11px;
-      color:var(--green);text-decoration:none;letter-spacing:.06em;
-      display:flex;align-items:center;gap:6px;
-    }
-    .news-note-link::after{content:'→'}
-    .news-list{display:flex;flex-direction:column;border-top:1px solid var(--border)}
-    .news-item{
-      display:flex;gap:28px;align-items:baseline;padding:16px 8px;
-      border-bottom:1px solid var(--border);text-decoration:none;color:inherit;
-      transition:background .15s,padding-left .15s;
-      border-radius:4px;
-    }
-    .news-item:hover{background:var(--white);padding-left:16px}
-    .news-date{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);flex-shrink:0;width:80px}
-    .news-title{font-size:13px;line-height:1.8}
-    .news-loading{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);padding:20px 0;text-align:center}
+    /* NEWS: リンクのみ */
 
     /* ── JOIN ── */
     #join{background:var(--white)}
@@ -524,16 +505,14 @@
 <!-- NEWS -->
 <section id="news">
   <div class="container">
-    <div class="news-header reveal">
-      <div>
-        <span class="s-label">News</span>
-        <h2 class="s-title">最新情報</h2>
-      </div>
-      <!-- ★ noteのURLを確認して差し替えてください ★ -->
-      <a href="https://note.com/base_campus" target="_blank" rel="noopener" class="news-note-link">noteをすべて見る</a>
+    <div class="reveal">
+      <span class="s-label">News</span>
+      <h2 class="s-title">最新情報</h2>
+      <p class="s-body" style="margin-bottom:32px">活動のようす・イベント情報・メンバーの声はこちらから。</p>
     </div>
-    <div class="news-list reveal" id="news-list">
-      <p class="news-loading" id="news-loading">loading...</p>
+    <div style="display:flex;gap:16px;flex-wrap:wrap" class="reveal">
+      <a href="https://note.com/base_campus" target="_blank" rel="noopener" class="btn-a">note を見る</a>
+      <a href="https://www.facebook.com/base.campus.toiro" target="_blank" rel="noopener" class="btn-b">Facebook を見る</a>
     </div>
   </div>
 </section>
@@ -598,69 +577,7 @@
   }, {threshold: 0.1});
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  // note RSS（rss2json経由）
-  // ★ noteのRSSのURLを確認して差し替えてください ★
-  // note RSS取得（CORS回避：複数プロキシをフォールバック付きで試行）
-  const RSS_URL = 'https://note.com/base_campus/rss';
-  const NOTE_URL = 'https://note.com/base_campus';
-
-  const PROXIES = [
-    url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-    url => `https://thingproxy.freeboard.io/fetch/${url}`,
-  ];
-
-  async function tryFetch(url) {
-    for (const proxy of PROXIES) {
-      try {
-        const r = await fetch(proxy(url), {signal: AbortSignal.timeout(5000)});
-        if (!r.ok) continue;
-        const text = await r.text();
-        if (text.includes('<item>')) return text;
-      } catch {}
-    }
-    return null;
-  }
-
-  async function loadNews() {
-    const list = document.getElementById('news-list');
-    const loading = document.getElementById('news-loading');
-
-    const xml_text = await tryFetch(RSS_URL);
-    if (!xml_text) {
-      loading.innerHTML = `<a href="${NOTE_URL}" target="_blank" rel="noopener" style="color:var(--green)">最新情報はnoteで発信しています →</a>`;
-      return;
-    }
-
-    try {
-      const parser = new DOMParser();
-      const xml = parser.parseFromString(xml_text, 'text/xml');
-      const items = Array.from(xml.querySelectorAll('item')).slice(0, 6);
-      if (!items.length) throw new Error();
-      loading.remove();
-      items.forEach(item => {
-        const title = item.querySelector('title')?.textContent || '';
-        const link  = item.querySelector('link')?.textContent
-                   || item.getElementsByTagNameNS('*','link')[0]?.textContent
-                   || NOTE_URL;
-        const pub   = item.querySelector('pubDate')?.textContent || '';
-        const dt    = pub ? new Date(pub) : null;
-        const ds    = dt
-          ? `${dt.getFullYear()}/${String(dt.getMonth()+1).padStart(2,'0')}/${String(dt.getDate()).padStart(2,'0')}`
-          : '';
-        const a = document.createElement('a');
-        a.className = 'news-item';
-        a.href = link;
-        a.target = '_blank';
-        a.rel = 'noopener';
-        a.innerHTML = `<span class="news-date">${ds}</span><span class="news-title">${title}</span>`;
-        list.appendChild(a);
-      });
-    } catch {
-      loading.innerHTML = `<a href="${NOTE_URL}" target="_blank" rel="noopener" style="color:var(--green)">最新情報はnoteで発信しています →</a>`;
-    }
-  }
-  loadNews();
+  // News: note / Facebook リンクのみ
 </script>
 </body>
 </html>
